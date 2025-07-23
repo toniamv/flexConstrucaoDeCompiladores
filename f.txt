@@ -1,4 +1,3 @@
-int main
-numero := 56.0
-
+numero := 56.0;
+a := (1>2);
 

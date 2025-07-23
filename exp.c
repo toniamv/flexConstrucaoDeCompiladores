@@ -12,6 +12,8 @@ extern Token *yylex();
 //     buffer = yy_scan_string(str);
 // }
 
+int filend = 0;
+
 Token *proximo_token() {
     return yylex();
 }
@@ -53,15 +55,16 @@ void imprime_token(Token *tok) {
     case ID:
         strcpy(tipo, "ID");
         break;
-    case TOK_PONT:
-        strcpy(tipo, "TOK_PONT");
-        break;
     case TOK_PARENT:
-        strcpy(tipo, "TOK_PONT");
-        break;
+	strcpy(tipo, "TOK_PARENT");
+	break;
+    case TOK_PONT:
+	strcpy(tipo, "TOK_PONT");
+	break;
     case TOK_EOF:
         strcpy(tipo, "EOF");
-        break;
+	filend = 1;
+	break;
     case ERRO:
         printf("Erro na captura de token");
         break;
@@ -80,7 +83,7 @@ int main(int argc, char **argv) {
     yyin = fopen(filename, "r");
 
     tok = proximo_token();
-    while (tok != NULL) {
+    while (filend != 1 && tok != NULL) {
         imprime_token(tok);
         tok = proximo_token();
     }
