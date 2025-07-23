@@ -49,6 +49,10 @@ else { return token(ELSE, "none"); }
 while { return token(WHILE, "none"); }
 repeat { return token(REPEAT, "none"); }
 until { return token(UNTIL, "none"); }
+) { return token(TOK_PARENT, ")"}
+( { return token(TOK_PARENT, ")")}
+; { return token(TOK_PONT, ";")}
+
 [{LETRAS}_][{LETRA}{NUM}_]* { return token(ID, yytext); }
 . { return token(ERRO, yytext); }
 <<EOF>> {return token(TOK_EOF, "none");}

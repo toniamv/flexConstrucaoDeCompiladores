@@ -16,6 +16,8 @@
 #define ID 11
 #define ERRO 12
 #define TOK_EOF 13
+#define TOK_PONT 14 
+#define TOK_PARENT 16
 
 // estrutura de um token
 typedef struct

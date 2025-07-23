@@ -53,8 +53,15 @@ void imprime_token(Token *tok) {
     case ID:
         strcpy(tipo, "ID");
         break;
+    case TOK_PONT:
+        strcpy(tipo, "TOK_PONT");
+        break;
+    case TOK_PARENT:
+        strcpy(tipo, "TOK_PONT");
+        break;
     case TOK_EOF:
         strcpy(tipo, "EOF");
+        break;
     case ERRO:
         printf("Erro na captura de token");
         break;
