@@ -3,7 +3,10 @@
 %option noyywrap
 %option nodefault
 %option outfile="lexer.c" header-file="lexer.h"
-%{ #include "exp.h" %}
+%{ 
+    #include "exp.h" 
+%}
+
 NUM [0-9]
 NUMS {NUM}+
 ABREC \/\*
@@ -13,7 +16,7 @@ LETRAS {LETRA}+
 
 %%
 [[:space:]\n\t] { } /* ignora espaços e separadores*/
-{ABREC}([^*]|\*+[^/])*\*+{FECHAC} { } /* ignora comentarios */ 
+{ABREC}([^*]|\*+[^/])*{FECHAC} { } /* ignora comentarios */ 
 
 {NUMS}\.{NUMS}(E[\+\-]?{NUMS})?  {return token(TOK_NUMF, yytext);}
 {NUM}+ { return token("NUM_INT", yytext); }
@@ -40,9 +43,10 @@ until {return token("UNTIL", "none")}
 // variavel global para um token
 Token tok;
 
-Token *token(int tipo, const char *valor) {
-    tok.tipo = tipo;
+Token *token(const char *tipo_v, const char *valor) {
+    strncpy(tok.tipo, tipo_v, LEXMAX-1);
+    tok.tipo[LEXMAX-1] = '\0'; //fecha string tipo
     strncpy(tok.atributo, valor, LEXMAX-1);
-    tok.atributo[LEXMAX-1] = '\0'; //fecha string
+    tok.atributo[LEXMAX-1] = '\0'; //fecha string atributo
     return &tok;
 }

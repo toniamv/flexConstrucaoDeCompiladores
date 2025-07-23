@@ -15,7 +15,7 @@ Token *proximo_token() {
 }
 
 void imprime_token( Token *tok) {
-    printf("<%d, %s>\n", tok->tipo, tok->atributo);
+    printf("<%s, %s>\n", tok->tipo, tok->atributo);
     //leitura de token
 }
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     scanf("%s", filename);
 
     fp = fopen(filename, "r");
-    yyin() = fp;
+    yyin = fp;
     
     tok = proximo_token();
     while (tok != NULL) {
