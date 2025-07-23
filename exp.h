@@ -3,14 +3,27 @@
 // constantes para nome de token
 #define LEXMAX 81 //define o tamanho maximo do lexema como string de 80 caracteres + \0
 
+#define TOK_NUMF   1
+#define NUM_INT    2
+#define RELOP      3
+#define ATRIB      4
+#define IF         5
+#define THEN       6
+#define ELSE       7
+#define WHILE      8
+#define REPEAT     9
+#define UNTIL     10
+#define ID        11
+#define ERRO      12
+
 // estrutura de um token
 typedef struct
 {
-    char tipo[LEXMAX];
+    int tipo;
     char atributo[LEXMAX]; //agora retorna um lexema
 } Token;
 
 // funcao para criar um token
 extern Token *token();
-// funcao do analisador lexico
+
 extern Token *yylex();
