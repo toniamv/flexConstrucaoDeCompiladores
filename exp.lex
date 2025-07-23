@@ -9,6 +9,16 @@
     #include <string.h>
     #include <stdlib.h>
     #define YY_DECL Token *yylex(void)
+    
+    // variavel global para um token
+    Token tok;
+
+    Token *token(int tipo, char *valor) {
+    tok.tipo = tipo;
+    strncpy(tok.atributo, valor, LEXMAX-1);
+    tok.atributo[LEXMAX-1] = '\0'; //fecha string atributo
+    return &tok;
+}
 %}
 
 NUM [0-9]
@@ -41,17 +51,8 @@ repeat { return token(REPEAT, "none"); }
 until { return token(UNTIL, "none"); }
 [{LETRAS}_][{LETRA}{NUM}_]* { return token(ID, yytext); }
 . { return token(ERRO, yytext); }
-<<EOF>> {return token(TOK_EOF, "none")}
+<<EOF>> {return token(TOK_EOF, "none");}
 
 
 %%
 
-// variavel global para um token
-Token tok;
-
-Token *token(int tipo, const char *valor) {
-    tok.tipo = tipo;
-    strncpy(tok.atributo, valor, LEXMAX-1);
-    tok.atributo[LEXMAX-1] = '\0'; //fecha string atributo
-    return &tok;
-}

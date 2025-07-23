@@ -1,0 +1,4 @@
+int main
+numero := 56.0
+
+
