@@ -2,8 +2,13 @@
 %option nodefault
 %option outfile="lexer.c" header-file="lexer.h"
 
-%{ 
-    #include "exp.h" 
+
+
+%{
+    #include "exp.h"
+    #include <string.h>
+    #include <stdlib.h>
+    #define YY_DECL Token *yylex(void)
 %}
 
 NUM [0-9]
@@ -36,10 +41,10 @@ repeat { return token(REPEAT, "none"); }
 until { return token(UNTIL, "none"); }
 [{LETRAS}_][{LETRA}{NUM}_]* { return token(ID, yytext); }
 . { return token(ERRO, yytext); }
+<<EOF>> {return token(TOK_EOF, "none")}
 
 
 %%
-
 
 // variavel global para um token
 Token tok;

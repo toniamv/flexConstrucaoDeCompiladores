@@ -1,19 +1,23 @@
-#include "lexer.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "exp.h"
 
 /* Carrega uma string como entrada */
-YY_BUFFER_STATE buffer;
+// YY_BUFFER_STATE buffer;
+extern FILE *yyin;
+extern Token *yylex();
 
-void inicializa(char *str) {
-    buffer = yy_scan_string(str);
-}
+// void inicializa(char *str) {
+//     buffer = yy_scan_string(str);
+// }
 
 Token *proximo_token() {
     return yylex();
 }
 
-void imprime_token( Token *tok) {
-    char tipo[LEXMAX];
+void imprime_token(Token *tok) {
+    char tipo[LEXMAX] = "";
 
     switch (tok->tipo) {
     case TOK_NUMF:
@@ -49,16 +53,13 @@ void imprime_token( Token *tok) {
     case ID:
         strcpy(tipo, "ID");
         break;
+    case TOK_EOF:
+        strcpy(tipo, "EOF");
     case ERRO:
         printf("Erro na captura de token");
-        return 0;
-        break;
-    default:
-        strcpy(tipo, "");
         break;
     }
     printf("<%s, %s>\n", tipo, tok->atributo);
-    
 }
 
 int main(int argc, char **argv) {
@@ -69,14 +70,13 @@ int main(int argc, char **argv) {
     printf("Entre nome do arquivo: \n");
     scanf("%s", filename);
 
-    fp = fopen(filename, "r");
-    yyin = fp;
-    
+    yyin = fopen(filename, "r");
+
     tok = proximo_token();
     while (tok != NULL) {
         imprime_token(tok);
         tok = proximo_token();
     }
-    printf("<EOF, none>\n");
+
  return 0;
 }
